@@ -2,9 +2,6 @@ target-version = "py312"
 
 line-length = 120
 
-lint.ignore = [
-]
-
 [lint.flake8-builtins]
 builtins-ignorelist = ["id", "type"]
 
