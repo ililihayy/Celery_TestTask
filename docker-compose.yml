@@ -1,0 +1,42 @@
+services:
+  mongo:
+    image: mongo:6
+    container_name: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    ports:
+      - "5672:5672" 
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+
+  flask:
+    build: .
+    container_name: flask-app
+    ports:
+      - "5000:5000"
+    environment:
+      - FLASK_ENV=development
+    depends_on:
+      - mongo
+      - rabbitmq
+
+  celery_worker:
+    build: .
+    container_name: celery-worker
+    command: celery -A app.tasks worker --loglevel=info
+    depends_on:
+      - rabbitmq
+      - mongo
+    environment:
+      - C_FORCE_ROOT=true
+
+volumes:
+  mongo-data:
