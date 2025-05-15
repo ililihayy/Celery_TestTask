@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, render_template
+from flask import Flask, jsonify, render_template, redirect, url_for
 from app.db import users_collection, addresses_collection, credit_cards_collection
 
 app = Flask(__name__)
@@ -29,13 +29,11 @@ def get_credit_cards() -> None:
 
 @app.route("/fetch-all")
 def fetch_all() -> None:
-    from app.tasks import fetch_users, fetch_addresses, fetch_credit_cards
+    from app.tasks import fetch_all
 
-    fetch_users.delay()
-    fetch_addresses.delay()
-    fetch_credit_cards.delay()
-    return jsonify({"status": "Fetching started"})
+    fetch_all()
+    return redirect(url_for("index"))
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True, host="0.0.0.0", port=5000)

@@ -43,3 +43,9 @@ def fetch_credit_cards() -> str:
         credit_cards_collection.update_one({"uid": user["id"]}, {"$set": credit_card}, upsert=True)
         updated += 1
     return f"Updated {updated} credit cards"
+
+
+def fetch_all() -> None:
+    fetch_users.delay()
+    fetch_addresses.delay()
+    fetch_credit_cards.delay()
