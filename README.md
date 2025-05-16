@@ -61,12 +61,14 @@ Celery_TestTask/
 ### Using Docker (Recommended)
 
 1. Clone the repository:
+
    ```bash
    git clone https://github.com/ililihayy/Celery_TestTask.git
    cd Celery_TestTask
    ```
 
 2. Start the application with Docker Compose:
+
    ```bash
    docker-compose up -d
    ```
@@ -78,35 +80,41 @@ Celery_TestTask/
 ### Manual Setup
 
 1. Clone the repository:
+
    ```bash
    git clone https://github.com/ililihayy/Celery_TestTask.git
    cd Celery_TestTask
    ```
 
 2. Create and activate a virtual environment:
+
    ```bash
    python -m venv venv
    source venv/bin/activate  # On Windows: venv\Scripts\activate
    ```
 
 3. Install dependencies:
+
    ```bash
    pip install -r requirements.txt
    ```
 
 4. Set up MongoDB (required for data storage):
+
    ```bash
    # Install MongoDB on your system or use Docker
    docker run -d -p 27017:27017 --name mongodb mongo:6
    ```
 
 5. Set up RabbitMQ (required for Celery):
+
    ```bash
    # Install RabbitMQ on your system or use Docker
    docker run -d -p 5672:5672 -p 15672:15672 --name rabbitmq rabbitmq:3-management
    ```
 
 6. Start the Flask application:
+
    ```bash
    python main.py
    ```
@@ -119,33 +127,43 @@ Celery_TestTask/
 ## API Endpoints
 
 ### Main Page
+
 ```
 GET /
 ```
+
 Returns the main HTML page.
 
 ### Fetch All Data
+
 ```
 GET /fetch-all
 ```
+
 Triggers asynchronous tasks to fetch users, addresses, and credit cards data.
 
 ### Get Users
+
 ```
 GET /users
 ```
+
 Returns all users data stored in the database.
 
 ### Get Addresses
+
 ```
 GET /addresses
 ```
+
 Returns all addresses data stored in the database.
 
 ### Get Credit Cards
+
 ```
 GET /credit-cards
 ```
+
 Returns all credit cards data stored in the database.
 
 ## Celery Tasks
@@ -172,12 +190,17 @@ The application uses MongoDB with the following collections:
 The project includes tests for each data fetching task:
 
 ```bash
-pytest tests/
+PYTHONPATH=. pytest tests/ # for Linux
+```
+
+```bash
+$env:PYTHONPATH = (Get-Location); pytest tests/ # for Windows
 ```
 
 ### Linting and Formatting
 
 The project includes configuration for:
+
 - Ruff (linting)
 - MyPy (type checking)
 - Pre-commit hooks
