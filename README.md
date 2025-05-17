@@ -29,21 +29,21 @@ This project is a simple Flask application that fetches and stores user data fro
 
 ```
 Celery_TestTask/
-├── app/                    # Application code
-│   ├── __pycache__/
-│   ├── __init__.py
-│   ├── config.py           # Configuration settings
-│   ├── db.py               # Database connections
-│   └── tasks.py            # Celery tasks
+├── app/                    # Application core
+│ ├── init.py               # Flask app factory
+│ ├── config.py             # Configuration settings
+│ ├── db.py                 # MongoDB connections
+│ ├── models.py             # Pydantic data models
+│ ├── repository.py         # Database operations
+│ ├── service.py            # Fetching logic
+│ ├── tasks.py              # Celery tasks
 ├── templates/              # HTML templates
 │   └── index.html
-├── tests/                  # Test files
-│   ├── __pycache__/
-│   ├── test_fetch_addresses.py
-│   ├── test_fetch_credit_cards.py
-│   └── test_fetch_users.py
+├── tests/                  # Comprehensive tests
+│ ├── test_repository.py    # DB operations tests
+│ ├── test_service.py       # Service tests
+│ └── test_tasks.py         # Celery tasks tests
 ├── .codespellrc            # Code spell checking config
-├── .env                    # Environment variables
 ├── .gitignore
 ├── .pre-commit-config.yaml # Pre-commit hooks
 ├── docker-compose.yml      # Docker Compose configuration
